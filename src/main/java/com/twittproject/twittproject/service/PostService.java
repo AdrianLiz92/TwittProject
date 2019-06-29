@@ -1,6 +1,7 @@
 package com.twittproject.twittproject.service;
 
 import com.twittproject.twittproject.entity.Post;
+import com.twittproject.twittproject.entity.User;
 import com.twittproject.twittproject.model.PostDto;
 import com.twittproject.twittproject.repository.PostRepository;
 import com.twittproject.twittproject.repository.UserRepository;
@@ -12,7 +13,8 @@ import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class PostService {
@@ -46,5 +48,25 @@ public class PostService {
 
         Post newPostToAdd = modelMapper.map(postDto, Post.class);
         postRepository.save(newPostToAdd);
+    }
+
+    public List<PostDto> getAllPosts(){
+        List<Post> posts = postRepository.findAll();
+
+        return posts.stream()
+                .map(u-> modelMapper.map(u, PostDto.class))
+                .collect(Collectors.toList());
+    }
+
+    public Map<Long, String> getIdAndLogin(){
+        List<User> users = userRepository.findAll();
+        Map<Long, String> idAndLogin = new HashMap<>();
+
+        for (User user : users) {
+            Long id = user.getId();
+            String login = user.getLogin();
+            idAndLogin.put(id,login);
+        }
+        return idAndLogin;
     }
 }
