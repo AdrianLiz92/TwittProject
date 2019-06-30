@@ -1,33 +1,30 @@
-package com.twittproject.twittproject.entity;
+package com.twittproject.twittproject.model;
 
-import javax.persistence.*;
 import java.util.Date;
 
-
-@Entity
-public class Comment {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(name = "create_date")
+public class CommentDto {
     private Date createDate;
     private String text;
-    @Column(name = "modify_date")
     private Date modifyDate;
-    @Column(name = "delete_date")
     private Date deleteDate;
-    @ManyToOne
-    private User user;
-    @ManyToOne
-    @JoinColumn(name = "post_id")
-    private Post post;
+    private UserDto user;
+    private PostDto post;
 
-    public Long getId() {
-        return id;
+
+    public UserDto getUser() {
+        return user;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUser(UserDto user) {
+        this.user = user;
+    }
+
+    public PostDto getPost() {
+        return post;
+    }
+
+    public void setPost(PostDto post) {
+        this.post = post;
     }
 
     public Date getCreateDate() {
@@ -62,19 +59,4 @@ public class Comment {
         this.deleteDate = deleteDate;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Post getPost() {
-        return post;
-    }
-
-    public void setPost(Post post) {
-        this.post = post;
-    }
 }

@@ -24,7 +24,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .permitAll()
                 .and()
-            .httpBasic();
+            .httpBasic()
+                .and().csrf().disable();
     }
 
     @Override

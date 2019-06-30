@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <title>Comments</title>
+</head>
+<body>
+
+<table border="2" class="bg-primary">
+    <thead>
+    <tr>
+        <th>Create date</th>
+        <th>Post</th>
+        <th>User</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr th:if="${parentPost!=null}" th:object="${parentPost}">
+            <td th:text="${parentPost.createDate}"></td>
+            <td th:text="${parentPost.text}"></td>
+            <td th:text="${parentPost.user.login}"></td>
+        </tr>
+    </tbody>
+</table>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Create date</th>
+        <th>Comment</th>
+        <th>User</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:if="${allComments!=null}" th:each="comment : ${allComments}">
+        <td th:text="${comment.createDate}"></td>
+        <td th:text="${comment.text}"></td>
+        <td th:text="${comment.user.login}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

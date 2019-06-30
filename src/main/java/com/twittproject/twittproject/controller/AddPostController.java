@@ -25,6 +25,6 @@ public class AddPostController {
     @PostMapping("/addPost")
     public String addPost(@ModelAttribute PostDto postDto) throws ParseException {
         postService.savePost(postDto);
-        return "/index";
+        return "redirect:index";
     }
 }

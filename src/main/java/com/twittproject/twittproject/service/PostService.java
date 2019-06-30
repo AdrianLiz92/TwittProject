@@ -3,6 +3,7 @@ package com.twittproject.twittproject.service;
 import com.twittproject.twittproject.entity.Post;
 import com.twittproject.twittproject.entity.User;
 import com.twittproject.twittproject.model.PostDto;
+import com.twittproject.twittproject.model.UserDto;
 import com.twittproject.twittproject.repository.PostRepository;
 import com.twittproject.twittproject.repository.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -13,7 +14,8 @@ import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -41,10 +43,8 @@ public class PostService {
         }else{
             login = principal.toString();
         }
-
-        Long loggedUserId = userRepository.findUserByLogin(login).get().getId();
-
-        postDto.setUserId(loggedUserId);
+        User loggedUser = userRepository.findUserByLogin(login).get();
+        postDto.setUser(modelMapper.map(loggedUser, UserDto.class));
 
         Post newPostToAdd = modelMapper.map(postDto, Post.class);
         postRepository.save(newPostToAdd);
@@ -58,15 +58,7 @@ public class PostService {
                 .collect(Collectors.toList());
     }
 
-    public Map<Long, String> getIdAndLogin(){
-        List<User> users = userRepository.findAll();
-        Map<Long, String> idAndLogin = new HashMap<>();
-
-        for (User user : users) {
-            Long id = user.getId();
-            String login = user.getLogin();
-            idAndLogin.put(id,login);
-        }
-        return idAndLogin;
+    public Post getPostById (Long id) {
+        return postRepository.findPostById(id).get();
     }
 }

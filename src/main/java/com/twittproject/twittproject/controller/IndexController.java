@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class IndexController {
@@ -26,9 +25,6 @@ public class IndexController {
     public String showAllPosts(Model model){
         List<PostDto> posts = postService.getAllPosts();
         model.addAttribute("allPosts", posts);
-
-        Map<Long, String> idAndLogin = postService.getIdAndLogin();
-        model.addAttribute("idAndLogin", idAndLogin);
 
         return "index";
     }

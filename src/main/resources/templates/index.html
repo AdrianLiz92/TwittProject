@@ -8,28 +8,38 @@
     <title>Welcome</title>
 </head>
 <body>
-    <h1> witam na indexie</h1>
-    <form action="/addPost">
-        <button class="btn btn-success" type="submit">Add a new post</button>
-    </form>
+<h1>Witam</h1>
+<form action="/addPost">
+    <button class="btn btn-success" type="submit">Add a new post</button>
+</form>
 
-    <table border="1">
-        <thead>
-        <tr>
-            <th>Create date</th>
-            <th>Post</th>
-            <th>User</th>
-        </tr>
-        </thead>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Create date</th>
+        <th>Post</th>
+        <th>User</th>
+    </tr>
+    </thead>
 
-        <tbody>
-        <tr th:each="post : ${allPosts}">
-                <td th:text="${post.createDate}">  </td>
-                <td th:text="${post.text}">  </td>
-                <td th:text="${(idAndLogin.get(post.userId))}"  ></td>
-        </tr>
-        </tbody>
-    </table>
+    <tbody>
+    <tr th:if="${allPosts!=null}" th:each="post : ${allPosts}">
+        <td th:text="${post.createDate}"></td>
+        <td th:text="${post.text}"></td>
+        <td th:text="${post.user.login}"></td>
+        <td>
+            <a th:href="@{/addComment(postId = ${post.getId()})}">
+                <button class="btn btn-success" type="submit">Add a comment</button>
+            </a>
+        </td>
+        <td>
+            <a th:href="@{/showComments(postId = ${post.getId()})}">
+                <button class="btn btn-primary" type="submit">Show comments</button>
+            </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
 
 </body>
 </html>

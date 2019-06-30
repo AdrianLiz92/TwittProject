@@ -4,18 +4,27 @@ import java.util.Date;
 
 
 public class PostDto {
+    private Long id;
     private Date createDate;
     private String text;
     private Date modifyDate;
-    private Long userId;
+    private UserDto user;
     private Date deleteDate;
 
-    public Long getUserId() {
-        return userId;
+    public Long getId() {
+        return id;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public UserDto getUser() {
+        return user;
+    }
+
+    public void setUser(UserDto user) {
+        this.user = user;
     }
 
     public Date getCreateDate() {

@@ -2,6 +2,7 @@ package com.twittproject.twittproject.entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Post {
@@ -18,6 +19,17 @@ public class Post {
     private User user;
     @Column(name = "delete_date")
     private Date deleteDate;
+    @OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Comment> comments;
+
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
 
     public Long getId() {
         return id;
