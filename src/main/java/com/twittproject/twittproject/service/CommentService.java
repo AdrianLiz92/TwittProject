@@ -58,4 +58,10 @@ public class CommentService {
                 .map(u -> modelMapper.map(u, CommentDto.class))
                 .collect(Collectors.toList());
     }
+
+    public void deleteComment (CommentDto commentDto) {
+        Long id = commentDto.getId();
+        Comment comment = commentRepository.findCommentById(id).get();
+        commentRepository.delete(comment);
+    }
 }

@@ -40,6 +40,13 @@
         <td th:text="${comment.createDate}"></td>
         <td th:text="${comment.text}"></td>
         <td th:text="${comment.user.login}"></td>
+        <td th:if="">
+            <form action="/deleteComment" th:method="post" th:object="${comment}">
+                <input type="hidden" name="id" th:value="${comment.id}"/>
+                <input type="hidden" name="parentPostId" th:value="${comment.post.id}"/>
+                <button class="btn btn-success" value="remove">Remove comment</button>
+            </form>
+        </td>
     </tr>
     </tbody>
 </table>

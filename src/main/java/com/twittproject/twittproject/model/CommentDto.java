@@ -3,13 +3,30 @@ package com.twittproject.twittproject.model;
 import java.util.Date;
 
 public class CommentDto {
+    private Long id;
     private Date createDate;
     private String text;
     private Date modifyDate;
     private Date deleteDate;
     private UserDto user;
     private PostDto post;
+    private Long parentPostId;
 
+    public Long getParentPostId() {
+        return parentPostId;
+    }
+
+    public void setParentPostId(Long parentPostId) {
+        this.parentPostId = parentPostId;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public UserDto getUser() {
         return user;
