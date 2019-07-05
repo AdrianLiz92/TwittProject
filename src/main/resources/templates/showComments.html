@@ -9,6 +9,8 @@
 </head>
 <body>
 
+
+
 <table border="2" class="bg-primary">
     <thead>
     <tr>
@@ -37,16 +39,18 @@
 
     <tbody>
     <tr th:if="${allComments!=null}" th:each="comment : ${allComments}">
-        <td th:text="${comment.createDate}"></td>
-        <td th:text="${comment.text}"></td>
-        <td th:text="${comment.user.login}"></td>
-        <td th:if="">
-            <form action="/deleteComment" th:method="post" th:object="${comment}">
-                <input type="hidden" name="id" th:value="${comment.id}"/>
-                <input type="hidden" name="parentPostId" th:value="${comment.post.id}"/>
-                <button class="btn btn-success" value="remove">Remove comment</button>
-            </form>
-        </td>
+        <span th:if="${comment.deleteDate==null}">
+            <td th:text="${comment.createDate}"></td>
+            <td th:text="${comment.text}"></td>
+            <td th:text="${comment.user.login}"></td>
+            <td th:if="${loggedInUser.id == comment.user.id || loggedInUser.role == 'ROLE_ADMIN'}">
+                <form action="/deleteComment" th:method="post" th:object="${comment}">
+                    <input type="hidden" name="id" th:value="${comment.id}"/>
+                    <input type="hidden" name="parentPostId" th:value="${comment.post.id}"/>
+                    <button class="btn btn-success" value="remove">Remove comment</button>
+                </form>
+            </td>
+         </span>
     </tr>
     </tbody>
 </table>

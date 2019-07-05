@@ -42,7 +42,7 @@ public class CommentService {
         User loggedUser = auxMet.getLoggedInUser();
         commentDto.setUser(modelMapper.map(loggedUser, UserDto.class));
 
-        Post parentPost = postRepository.findPostById(Long.valueOf(id)).get();
+        Post parentPost = postRepository.findOne(Long.valueOf(id));
 
         commentDto.setPost(modelMapper.map(parentPost, PostDto.class));
 
@@ -59,9 +59,17 @@ public class CommentService {
                 .collect(Collectors.toList());
     }
 
-    public void deleteComment (CommentDto commentDto) {
+  /*  public void deleteComment (CommentDto commentDto) {
         Long id = commentDto.getId();
         Comment comment = commentRepository.findCommentById(id).get();
         commentRepository.delete(comment);
+    }*/
+
+    public void markCommentAsDeleted (CommentDto commentDto) throws ParseException {
+        Long id = commentDto.getId();
+        Comment commentToBeDeleted = commentRepository.getOne(id);
+
+        commentToBeDeleted.setDeleteDate(auxMet.getCurrentDateTime());
+        commentRepository.save(commentToBeDeleted);
     }
 }

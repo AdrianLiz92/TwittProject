@@ -24,19 +24,27 @@
 
     <tbody>
     <tr th:if="${allPosts!=null}" th:each="post : ${allPosts}">
-        <td th:text="${post.createDate}"></td>
-        <td th:text="${post.text}"></td>
-        <td th:text="${post.user.login}"></td>
-        <td>
-            <a th:href="@{/addComment(postId = ${post.getId()})}">
-                <button class="btn btn-success" type="submit">Add a comment</button>
-            </a>
-        </td>
-        <td>
-            <a th:href="@{/showComments(postId = ${post.getId()})}">
-                <button class="btn btn-primary" type="submit">Show comments</button>
-            </a>
-        </td>
+        <span th:if="${post.deleteDate==null}">
+            <td th:text="${post.createDate}"></td>
+            <td th:text="${post.text}"></td>
+            <td th:text="${post.user.login}"></td>
+            <td>
+                <a th:href="@{/addComment(postId = ${post.getId()})}">
+                    <button class="btn btn-success" type="submit">Add a comment</button>
+                </a>
+            </td>
+            <td>
+                <a th:href="@{/showComments(postId = ${post.getId()})}">
+                    <button class="btn btn-primary" type="submit">Show comments</button>
+                </a>
+            </td>
+            <td th:if="${loggedInUser.id == post.user.id || loggedInUser.role=='ROLE_ADMIN' }">
+                <form action="/deletePost" th:method="post" th:object="${post}">
+                    <input type="hidden" name="id" th:value="${post.id}"/>
+                    <button class="btn btn-success" value="remove">Remove post</button>
+                </form>
+            </td>
+        </span>
     </tr>
     </tbody>
 </table>

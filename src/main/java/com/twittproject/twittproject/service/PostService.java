@@ -1,9 +1,12 @@
 package com.twittproject.twittproject.service;
 
+import com.twittproject.twittproject.AuxiliaryMethods;
+import com.twittproject.twittproject.entity.Comment;
 import com.twittproject.twittproject.entity.Post;
 import com.twittproject.twittproject.entity.User;
 import com.twittproject.twittproject.model.PostDto;
 import com.twittproject.twittproject.model.UserDto;
+import com.twittproject.twittproject.repository.CommentRepository;
 import com.twittproject.twittproject.repository.PostRepository;
 import com.twittproject.twittproject.repository.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -23,12 +26,18 @@ public class PostService {
     private PostRepository postRepository;
     private ModelMapper modelMapper;
     private UserRepository userRepository;
+    private AuxiliaryMethods auxMethods;
+    private CommentRepository commentRepository;
 
     @Autowired
-    public PostService(PostRepository postRepository, ModelMapper modelMapper, UserRepository userRepository) {
+    public PostService(PostRepository postRepository, ModelMapper modelMapper,
+                       UserRepository userRepository, AuxiliaryMethods auxMethods,
+                       CommentRepository commentRepository) {
         this.postRepository = postRepository;
         this.modelMapper = modelMapper;
         this.userRepository= userRepository;
+        this.auxMethods = auxMethods;
+        this.commentRepository = commentRepository;
     }
 
     public void savePost (PostDto postDto) throws ParseException {
@@ -51,14 +60,36 @@ public class PostService {
     }
 
     public List<PostDto> getAllPosts(){
-        List<Post> posts = postRepository.findAll();
-
+        /*List<Post> posts = postRepository.findAll();*/
+        List<Post> posts = postRepository.findAllByOrderByCreateDateDesc();
         return posts.stream()
                 .map(u-> modelMapper.map(u, PostDto.class))
                 .collect(Collectors.toList());
     }
 
-    public Post getPostById (Long id) {
-        return postRepository.findPostById(id).get();
+    /**
+     * Sets date and time of deletion for Post and Comments related to it.
+     *
+     * @param postDto
+     * @throws ParseException
+     */
+    public void markPostAsDeleted (PostDto postDto) throws ParseException {
+        Long id =  postDto.getId();
+        Post postToBeDeleted =  postRepository.getOne(id);
+        Date currentDateAndTime = auxMethods.getCurrentDateTime();
+
+        postToBeDeleted.setDeleteDate(currentDateAndTime);
+        postRepository.save(postToBeDeleted);
+
+        List<Comment> commentsToBeDeleted = commentRepository.findAllCommentsByPost_idEquals(id);
+        for (Comment comment : commentsToBeDeleted) {
+            comment.setDeleteDate(currentDateAndTime);
+            commentRepository.save(comment);
+        }
+
     }
+
+
+
+
 }
