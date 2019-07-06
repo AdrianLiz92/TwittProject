@@ -1,18 +1,17 @@
-package com.twittproject.twittproject.entity;
+package com.twittproject.twittproject.model;
 
-import javax.persistence.*;
-import java.sql.Date;
+import org.springframework.format.annotation.DateTimeFormat;
 
-@Entity(name = "user_details")
-public class UserDetails {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+import java.util.Date;
+
+public class UserDetailsDto {
     private Long id;
     private String name;
     private String surname;
     private String email;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dob;
-    @Column(name = "join_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date joinDate;
 
     public Long getId() {

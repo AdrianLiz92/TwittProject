@@ -24,6 +24,7 @@ public class AuxiliaryMethods {
         return sdf.parse(newDateFormat);
     }
 
+
     public User getLoggedInUser(){
         String login="";
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

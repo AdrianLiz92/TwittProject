@@ -1,15 +1,17 @@
 package com.twittproject.twittproject.model;
 
-import java.sql.Timestamp;
+import com.twittproject.twittproject.entity.UserDetails;
+
+import java.util.Date;
 
 public class UserDto {
     private Long id;
     private String login;
     private String password;
     private String role;
-    private Long user_details_id;
-    private Timestamp lock_date;
-    private Timestamp unlock_date;
+    private UserDetails userDetails;
+    private Date lockDate;
+    private Date unlockDate;
 
     public Long getId() {
         return id;
@@ -43,27 +45,28 @@ public class UserDto {
         this.role = role;
     }
 
-    public Long getUser_details_id() {
-        return user_details_id;
+    public UserDetails getUserDetails() {
+        return userDetails;
     }
 
-    public void setUser_details_id(Long user_details_id) {
-        this.user_details_id = user_details_id;
+    public void setUserDetails(UserDetails userDetails) {
+        this.userDetails = userDetails;
     }
 
-    public Timestamp getLock_date() {
-        return lock_date;
+    public Date getLockDate() {
+        return lockDate;
     }
 
-    public void setLock_date(Timestamp lock_date) {
-        this.lock_date = lock_date;
+    public void setLockDate(Date lockDate) {
+        this.lockDate = lockDate;
     }
 
-    public Timestamp getUnlock_date() {
-        return unlock_date;
+    public Date getUnlockDate() {
+        return unlockDate;
     }
 
-    public void setUnlock_date(Timestamp unlock_date) {
-        this.unlock_date = unlock_date;
+    public void setUnlockDate(Date unlockDate) {
+        this.unlockDate = unlockDate;
     }
 }
+

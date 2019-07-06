@@ -12,7 +12,8 @@ public class User {
     private String password;
     private String role;
     @OneToOne(cascade = CascadeType.ALL)
-    private UserDetails user_details;
+    @JoinColumn(name = "user_details_id")
+    private UserDetails userDetails;
     @Column(name = "lock_date")
     private Date lockDate;
     @Column(name = "unlock_date")
@@ -47,12 +48,12 @@ public class User {
         this.role = role;
     }
 
-    public UserDetails getUser_details() {
-        return user_details;
+    public UserDetails getUserDetails() {
+        return userDetails;
     }
 
-    public void setUser_details(UserDetails user_details) {
-        this.user_details = user_details;
+    public void setUserDetails(UserDetails userDetails) {
+        this.userDetails = userDetails;
     }
 
     public void setId(Long id) {

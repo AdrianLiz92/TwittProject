@@ -13,6 +13,12 @@
     <button class="btn btn-success" type="submit">Add a new post</button>
 </form>
 
+<span th:if="${loggedInUser.role=='ROLE_ADMIN'}">
+    <form action="/userManagement">
+        <button class="btn btn-danger" type="submit">User list</button>
+    </form>
+</span>
+
 <table border="1">
     <thead>
     <tr>

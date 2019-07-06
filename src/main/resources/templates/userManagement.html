@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <title>User Management</title>
+</head>
+<body>
+
+<table border="2">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Login</th>
+            <th>Role</th>
+            <th>Lock date</th>
+            <th>Unlock date</th>
+
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr th:each="user : ${userList}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.login}"></td>
+            <td th:text="${user.role}"></td>
+            <td th:text="${user.lockDate}"></td>
+            <td th:text="${user.unlockDate}"></td>
+        </tr>
+
+
+    </tbody>
+</table>
+
+
+
+</body>
+</html>

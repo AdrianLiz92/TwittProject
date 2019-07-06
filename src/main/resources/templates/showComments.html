@@ -24,6 +24,11 @@
             <td th:text="${parentPost.createDate}"></td>
             <td th:text="${parentPost.text}"></td>
             <td th:text="${parentPost.user.login}"></td>
+
+                <a th:href="@{/addComment(postId = ${parentPost.id})}">
+                    <button class="btn btn-success" type="submit">Add a comment</button>
+                </a>
+
         </tr>
     </tbody>
 </table>
